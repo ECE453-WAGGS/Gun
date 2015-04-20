@@ -1,9 +1,12 @@
-// Ignore everything by default
-*
+ece453_defconfig
+ece453.dts
+main.c
 
-!README.md
-!.gitignore
+/images/
 
-// Include HDL files
-!Xilinx/**/*.v
-!Xilinx/**/*.vhd
+/SDK/*
+
+/Xilinx/*
+!/Xilinx/pcores/
+/Xilinx/pcores/*/*
+!/Xilinx/pcores/*/hdl/
