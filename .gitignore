@@ -21,3 +21,4 @@ main.c
 !/drivers/*/Makefile
 !/drivers/*/*.h
 !/drivers/*/*.c
+/drivers/*/*.mod.c
