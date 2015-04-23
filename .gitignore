@@ -1,5 +1,4 @@
 ece453_defconfig
-ece453.dts
 main.c
 
 /images/
@@ -10,3 +9,10 @@ main.c
 !/Xilinx/pcores/
 /Xilinx/pcores/*/*
 !/Xilinx/pcores/*/hdl/
+
+/Xilinx/*
+!/Xilinx/hw/
+/Xilinx/hw/xps_proj/*
+!/Xilinx/hw/xps_proj/pcores/
+/Xilinx/hw/xps_proj/pcores/*/*
+!/Xilinx/hw/xps_proj/pcores/*/hdl
