@@ -545,11 +545,12 @@
 /* Entries below Added for ECE453 */
         ece453_led {
             compatible = "uw,ece453-leds-1.00.a";
-            reg = <0x6f211000 0x10000>;
+            reg = <0x6f211000 0x1000>;
         };
 
         ece453_switch {
-            
+            compatible = "uw,ece453-switches-1.00.a";
+            reg = <0x6f210000 0x1000>;
         };
 	};
 };

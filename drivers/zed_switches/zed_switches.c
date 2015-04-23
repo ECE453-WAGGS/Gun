@@ -43,29 +43,27 @@ static bool debug = false;	/* print extra debug info */
 module_param(debug, bool, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(debug, "enable debug info (default: false)");
 
-static ssize_t ece453_write(struct kobject *kobj, struct kobj_attribute *attr,
-                       const char *buf, size_t count)
+static ssize_t ece453_read(struct kobject *kobj, struct kobj_attribute *attr,
+                        char *buf)
 {
-	int var;
+    int switches;
 
-	sscanf(buf, "%xu", &var);
+    switches = ioread8(base_addr);
 
-	/* write the value out to the LEDs */
-	iowrite8( var,
-		   base_addr);
+    sprintf(buf, "%x", switches);
 
-        return count;
+    return 8;
 }
 
-static struct kobj_attribute leds_attribute =
-        __ATTR(write, 0222, NULL, ece453_write);
+static struct kobj_attribute switches_attribute =
+        __ATTR(read, 0444, ece453_read, NULL);
 
 /*
  * Create a group of attributes so that we can create and destory them all
  * at once.
  */
 static struct attribute *attrs[] = {
-        &leds_attribute.attr,
+        &switches_attribute.attr,
         NULL,   /* need to NULL terminate the list of attributes */
 };
 
@@ -149,7 +147,7 @@ static int __devinit zed_probe(struct platform_device *pdev)
      * any type of dynamic kobjects, where the name and number are
      * not known ahead of time.
      */
-    ece453_obj = kobject_create_and_add("ece453_leds", kernel_kobj);
+    ece453_obj = kobject_create_and_add("ece453_switches", kernel_kobj);
     if (!ece453_obj)
             return -ENOMEM;
 
@@ -168,7 +166,7 @@ static int __devinit zed_probe(struct platform_device *pdev)
 
 /* device match table to match with device node in device tree */
 static const struct of_device_id zed_of_match[] __devinitconst = {
-	{.compatible = "uw,ece453-leds-1.00.a"},
+	{.compatible = "uw,ece453-switches-1.00.a"},
 	{},
 };
 

@@ -16,3 +16,8 @@ main.c
 !/Xilinx/hw/xps_proj/pcores/
 /Xilinx/hw/xps_proj/pcores/*/*
 !/Xilinx/hw/xps_proj/pcores/*/hdl
+
+/drivers/*/*
+!/drivers/*/Makefile
+!/drivers/*/*.h
+!/drivers/*/*.c
