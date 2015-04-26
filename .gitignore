@@ -7,6 +7,8 @@ main.c
 /Xilinx/*
 !/Xilinx/hw/
 /Xilinx/hw/xps_proj/*
+!/Xilinx/hw/xps_proj/data/
+/Xilinx/hw/xps_proj/data/*
 !/Xilinx/hw/xps_proj/data/system.ucf
 !/Xilinx/hw/xps_proj/pcores/
 /Xilinx/hw/xps_proj/pcores/*/*

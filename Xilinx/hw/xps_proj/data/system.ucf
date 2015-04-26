@@ -1,0 +1,187 @@
+#############################################################
+#                                                           #
+# HDMI Interface                                            #
+#                                                           #
+#############################################################
+NET hdmi_clk        LOC = W18  | IOSTANDARD = LVCMOS33;
+NET hdmi_vsync      LOC = W17  | IOSTANDARD = LVCMOS33;
+NET hdmi_hsync      LOC = V17  | IOSTANDARD = LVCMOS33;
+NET hdmi_data_e     LOC = U16  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[0]    LOC = Y13  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[1]    LOC = AA13 | IOSTANDARD = LVCMOS33;
+NET hdmi_data[2]    LOC = AA14 | IOSTANDARD = LVCMOS33;
+NET hdmi_data[3]    LOC = Y14  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[4]    LOC = AB15 | IOSTANDARD = LVCMOS33;
+NET hdmi_data[5]    LOC = AB16 | IOSTANDARD = LVCMOS33;
+NET hdmi_data[6]    LOC = AA16 | IOSTANDARD = LVCMOS33;
+NET hdmi_data[7]    LOC = AB17 | IOSTANDARD = LVCMOS33;
+NET hdmi_data[8]    LOC = AA17 | IOSTANDARD = LVCMOS33;
+NET hdmi_data[9]    LOC = Y15  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[10]   LOC = W13  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[11]   LOC = W15  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[12]   LOC = V15  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[13]   LOC = U17  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[14]   LOC = V14  | IOSTANDARD = LVCMOS33;
+NET hdmi_data[15]   LOC = V13  | IOSTANDARD = LVCMOS33;
+NET hdmi_spdif      LOC = U15  | IOSTANDARD = LVCMOS33;
+NET hdmi_int        LOC = W16  | IOSTANDARD = LVCMOS33;
+
+NET hdmi_iic_scl    LOC = AA18 | IOSTANDARD = LVCMOS33;
+NET hdmi_iic_sda    LOC = Y16  | IOSTANDARD = LVCMOS33;
+
+#############################################################
+#                                                           #
+# VGA Interface                                            #
+#                                                           #
+#############################################################
+
+net vga_flyinglogo_0_HSYNC_O_pin LOC = AA19	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_VSYNC_O_pin LOC = Y19	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_RED_O_pin<0> LOC = V20	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_RED_O_pin<1> LOC = U20	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_RED_O_pin<2> LOC = V19	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_RED_O_pin<3> LOC = V18	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_GREEN_O_pin<0> LOC = AB22	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_GREEN_O_pin<1> LOC = AA22	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_GREEN_O_pin<2> LOC = AB21	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_GREEN_O_pin<3> LOC = AA21	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_BLUE_O_pin<0> LOC = Y21	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_BLUE_O_pin<1> LOC = Y20	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_BLUE_O_pin<2> LOC = AB20	| IOSTANDARD = LVCMOS33;
+net vga_flyinglogo_0_BLUE_O_pin<3> LOC = AB19	| IOSTANDARD = LVCMOS33;
+
+#############################################################
+#                                                           #
+# GPIO Interface                                            #
+#                                                           #
+#############################################################
+
+############################
+#                          #
+# GPIO pin to reset the    #
+# USB OTG PHY              #
+#                          #
+############################
+net processing_system7_0_GPIO_pin<0> LOC = G17  | IOSTANDARD = LVCMOS33;	# USB-Reset
+
+############################
+#                          #
+# On-board OLED            #
+#                          #
+# Voltage control and      #
+# Bitbanged SPI over GPIO  #
+#                          #
+############################
+net processing_system7_0_GPIO_pin<1> LOC = U11  | IOSTANDARD = LVCMOS33;	# OLED-VBAT
+net processing_system7_0_GPIO_pin<2> LOC = U12  | IOSTANDARD = LVCMOS33;	# OLED-VDD
+net processing_system7_0_GPIO_pin<3> LOC = U9   | IOSTANDARD = LVCMOS33;	# OLED-RES
+net processing_system7_0_GPIO_pin<4> LOC = U10  | IOSTANDARD = LVCMOS33;	# OLED-DC
+net processing_system7_0_GPIO_pin<5> LOC = AB12 | IOSTANDARD = LVCMOS33;	# OLED-SCLK
+net processing_system7_0_GPIO_pin<6> LOC = AA12 | IOSTANDARD = LVCMOS33;	# OLED-SDIN
+
+############################
+#                          #
+# On-board LED's           #
+#                          #
+############################
+net myled_0_LED_pin<0>  LOC = T22 | IOSTANDARD = LVCMOS33;	# LD0
+net myled_0_LED_pin<1>  LOC = T21 | IOSTANDARD = LVCMOS33;	# LD1
+net myled_0_LED_pin<2>  LOC = U22 | IOSTANDARD = LVCMOS33;	# LD2
+net myled_0_LED_pin<3> LOC = U21 | IOSTANDARD = LVCMOS33;	# LD3
+net myled_0_LED_pin<4> LOC = V22 | IOSTANDARD = LVCMOS33;	# LD4
+net myled_0_LED_pin<5> LOC = W22 | IOSTANDARD = LVCMOS33;	# LD5
+net myled_0_LED_pin<6> LOC = U19 | IOSTANDARD = LVCMOS33;	# LD6
+net myled_0_LED_pin<7> LOC = U14 | IOSTANDARD = LVCMOS33;	# LD7
+
+############################
+#                          #
+# On-board Slide Switches  #
+#                          #
+############################
+net myswitches_0_THUMB_SWITCH_pin<0> LOC = F22 | IOSTANDARD = LVCMOS33;	# SW0
+net myswitches_0_THUMB_SWITCH_pin<1> LOC = G22 | IOSTANDARD = LVCMOS33;	# SW1
+net myswitches_0_THUMB_SWITCH_pin<2> LOC = H22 | IOSTANDARD = LVCMOS33;	# SW2
+net myswitches_0_THUMB_SWITCH_pin<3> LOC = F21 | IOSTANDARD = LVCMOS33;	# SW3
+net myswitches_0_THUMB_SWITCH_pin<4> LOC = H19 | IOSTANDARD = LVCMOS33;	# SW4
+net myswitches_0_THUMB_SWITCH_pin<5> LOC = H18 | IOSTANDARD = LVCMOS33;	# SW5
+net myswitches_0_THUMB_SWITCH_pin<6> LOC = H17 | IOSTANDARD = LVCMOS33;	# SW6
+net myswitches_0_THUMB_SWITCH_pin<7> LOC = M15 | IOSTANDARD = LVCMOS33;	# SW7
+
+############################
+#                          #
+# On-board Left, Right,    #
+# Up, Down, and Select     #
+# Pushbuttons              #
+#                          #
+############################
+net processing_system7_0_GPIO_pin<7> LOC = N15 | IOSTANDARD = LVCMOS33;	# BTNL
+net processing_system7_0_GPIO_pin<8> LOC = R18 | IOSTANDARD = LVCMOS33;	# BTNR
+net processing_system7_0_GPIO_pin<9> LOC = T18 | IOSTANDARD = LVCMOS33;	# BTNU
+net processing_system7_0_GPIO_pin<10> LOC = R16 | IOSTANDARD = LVCMOS33;	# BTND
+net processing_system7_0_GPIO_pin<11> LOC = P16 | IOSTANDARD = LVCMOS33;	# BTNS
+
+############################
+#                          #
+# Pmod JA                  #
+#                          #
+############################
+net general_register_0_DATA_pin<0> 	  	LOC = Y11  | IOSTANDARD = LVCMOS33;	# JA1 - BT_WAKE_HW_ZED
+net general_register_0_DATA_pin<1>    	LOC = AA11 | IOSTANDARD = LVCMOS33;	# JA2 - TP202
+net general_register_0_DATA_pin<2>    	LOC = Y10  | IOSTANDARD = LVCMOS33;	# JA3 - TP203
+net general_register_0_DATA_pin<3>    	LOC = AA9  | IOSTANDARD = LVCMOS33;	# JA4 - TP204
+net general_register_0_DATA_pin<4>	  	LOC = AB11 | IOSTANDARD = LVCMOS33;	# JA7 - BT_CMD/MLDP_ZED
+net general_register_0_DATA_pin<5>	  	LOC = AB10 | IOSTANDARD = LVCMOS33;	# JA8 - BT_WAKE_SW_ZED
+net axi_uartlite_0_TX_pin		LOC = AB9  | IOSTANDARD = LVCMOS33;	# JA9 - UART_ZED_TO_BT
+net axi_uartlite_0_RX_pin 		LOC = AA8  | IOSTANDARD = LVCMOS33;	# JA10 - UART_BT_TO_ZED
+
+############################
+#                          #
+# Pmod JB                  #
+#                          #
+############################
+net general_register_1_DATA_pin<0> 	  LOC = W12 | IOSTANDARD = LVCMOS33;	# JB1 - FIRE
+net pulse_width_register_0_DATA_pin   LOC = W11 | IOSTANDARD = LVCMOS33;	# JB2 - TILT_SERVO
+net pulse_width_register_1_DATA_pin   LOC = V10 | IOSTANDARD = LVCMOS33;	# JB3 - PAN_SERVO
+net general_register_1_DATA_pin<1>	  LOC = W8  | IOSTANDARD = LVCMOS33;	# JB4 - FLYWHEEL_1
+net general_register_1_DATA_pin<2>	  LOC = V12 | IOSTANDARD = LVCMOS33;	# JB7 - FLYWHEEL_2
+net general_register_1_DATA_pin<3> 	  LOC = W10 | IOSTANDARD = LVCMOS33;	# JB8 - TP307
+net general_register_1_DATA_pin<4> 	  LOC = V9  | IOSTANDARD = LVCMOS33;	# JB9 - TP306
+net general_register_1_DATA_pin<5> 	  LOC = V8  | IOSTANDARD = LVCMOS33;	# JB10 - TP304
+
+############################
+#                          #
+# Pmod JC                  #
+#                          #
+############################
+net processing_system7_0_GPIO_pin<12> LOC = AB7 | IOSTANDARD = LVCMOS33;	# JC1_P	(JC1)
+net processing_system7_0_GPIO_pin<13> LOC = AB6 | IOSTANDARD = LVCMOS33;	# JC1_N	(JC2)
+net processing_system7_0_GPIO_pin<14> LOC = Y4  | IOSTANDARD = LVCMOS33;	# JC2_P	(JC3)
+net processing_system7_0_GPIO_pin<15> LOC = AA4 | IOSTANDARD = LVCMOS33;	# JC2_N	(JC4)
+net processing_system7_0_GPIO_pin<16> LOC = R6  | IOSTANDARD = LVCMOS33;	# JC3_P	(JC7)
+net processing_system7_0_GPIO_pin<17> LOC = T6  | IOSTANDARD = LVCMOS33;	# JC3_N	(JC8)
+net processing_system7_0_GPIO_pin<18> LOC = T4  | IOSTANDARD = LVCMOS33;	# JC4_P	(JC9)
+net processing_system7_0_GPIO_pin<19> LOC = U4  | IOSTANDARD = LVCMOS33;	# JC4_N	(JC10)
+
+############################
+#                          #
+# Pmod JD                  #
+#                          #
+############################
+net processing_system7_0_GPIO_pin<20> LOC = V7  | IOSTANDARD = LVCMOS33;	# JD1_P	(JD1)
+net processing_system7_0_GPIO_pin<21> LOC = W7  | IOSTANDARD = LVCMOS33;	# JD1_N	(JD2)
+net processing_system7_0_GPIO_pin<22> LOC = V5  | IOSTANDARD = LVCMOS33;	# JD2_P	(JD3)
+net processing_system7_0_GPIO_pin<23> LOC = V4  | IOSTANDARD = LVCMOS33;	# JD2_N	(JD4)
+net processing_system7_0_GPIO_pin<24> LOC = W6  | IOSTANDARD = LVCMOS33;	# JD3_P	(JD7)
+net processing_system7_0_GPIO_pin<25> LOC = W5  | IOSTANDARD = LVCMOS33;	# JD3_N	(JD8)
+net processing_system7_0_GPIO_pin<26> LOC = U6  | IOSTANDARD = LVCMOS33;	# JD4_P	(JD9)
+net processing_system7_0_GPIO_pin<27> LOC = U5  | IOSTANDARD = LVCMOS33;	# JD4_N	(JD10)
+
+
+#############################################################
+#                                                           #
+# Pin for detecting USB OTG over-current condition          #
+#                                                           #
+#############################################################
+
+NET otg_oc          LOC = L16  | IOSTANDARD="LVCMOS33";
+

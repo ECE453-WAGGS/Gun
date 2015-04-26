@@ -6,9 +6,11 @@ ece453_defconfig: Kernel build configuration.  Do not use this file; instead, ru
 
 images: Images used for creating the bootloader.
 
+imaging: Code to perform the image processing.
+
 SDK: Project for the Xilinx SDK.  This shouldn't be tracked in the repository.  You should delete this folder whenever you need to regenerate the FSBL, because otherwise it doesn't work properly for some reason.
 
-Xilinx: XPS project files.  The only files currently being tracked are the constraints file and the IPM HDL files.   
+Xilinx: XPS project files.  The only files currently being tracked are the constraints file and the IPM HDL files.
 
 kernel_drivers: The device drivers for our IPMs.  To install a driver, run 'make' inside its subdirectory, copy the .ko over to the ZedBoard, and then run 'insmod foo.ko'.
 
