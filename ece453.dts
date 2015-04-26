@@ -503,7 +503,7 @@
 			clock-frequency = <50000000>;
 			compatible = "xlnx,ps7-uart-1.00.a", "xlnx,xuartps";
 			current-speed = <115200>;
-			device_type = "serial";
+			/*device_type = "serial";*/
 			interrupt-parent = <&ps7_scugic_0>;
 			interrupts = < 0 50 4 >;
 			port-number = <0>;
@@ -542,7 +542,8 @@
 			spi-sdin-gpio = <&ps7_gpio_0 60 0>;
 		};
 
-/* Entries below Added for ECE453 */
+        /* Entries below Added for ECE453 */
+
         ece453_led {
             compatible = "uw,ece453-leds-1.00.a";
             reg = <0x6f211000 0x1000>;
@@ -552,5 +553,48 @@
             compatible = "uw,ece453-switches-1.00.a";
             reg = <0x6f210000 0x1000>;
         };
+
+        ece453_pan_servo {
+            compatible = "uw,ece453-pulse-width-register-1.00.a";
+            reg = <0x6f200000 0x10000>;
+        };
+/*
+        ece453_tilt_servo {
+            compatible = "uw,ece453-pulse-width-register-1.00.a";
+            reg = <0x6f220000 0x10000>;
+        };
+
+        ece453_bluetooth_control {
+            compatible = "uw,ece453-general-register-1.00.a";
+            reg = <0x77220000 0x10000>;
+        };
+
+        ece453_gun_control {
+            compatible = "uw,ece453-general-register-1.00.a";
+            reg = <0x77200000 0x10000>;
+        };*/
+
+        axi_uartlite_0 {
+            compatible = "xlnx,xps-uartlite-1.00.a";
+            reg = <0x42c00000 0x10000>;
+            interrupt-parent = <&ps7_scugic_0>;
+            interrupts = <0 54 4>;
+            port-number = <0>;
+            clock = <100000000>;
+        };
+
+        /*axi_uartlite_0: serial@42c00000 {
+			clock = <50000000>;
+			clock-frequency = <50000000>;
+			compatible = "xlnx,axi-uartlite-0-1.00.a", "xlnx,xuartps";
+			current-speed = <115200>;
+			device_type = "serial";
+			interrupt-parent = <&ps7_scugic_0>;
+			interrupts = < 0 54 4 >;
+			port-number = <0>;
+			reg = <0x42c00000 0x10000>;
+			xlnx,has-modem = <0x0>;
+			xlnx,uart-clk-freq-hz = <0x2faf080>;
+		};*/
 	};
 };

@@ -1,24 +1,24 @@
-ece453_defconfig
 main.c
 
 /images/
 
-/SDK/*
-
-/Xilinx/*
-!/Xilinx/pcores/
-/Xilinx/pcores/*/*
-!/Xilinx/pcores/*/hdl/
+/SDK*/*
 
 /Xilinx/*
 !/Xilinx/hw/
 /Xilinx/hw/xps_proj/*
+!/Xilinx/hw/xps_proj/data/system.ucf
 !/Xilinx/hw/xps_proj/pcores/
 /Xilinx/hw/xps_proj/pcores/*/*
 !/Xilinx/hw/xps_proj/pcores/*/hdl
 
-/drivers/*/*
-!/drivers/*/Makefile
-!/drivers/*/*.h
-!/drivers/*/*.c
-/drivers/*/*.mod.c
+/kernel_drivers/*/*
+!/kernel_drivers/*/Makefile
+!/kernel_drivers/*/*.h
+!/kernel_drivers/*/*.c
+/kernel_drivers/*/*.mod.c
+
+/user_drivers/*/*
+!/user_drivers/*/Makefile
+!/user_drivers/*/*.h
+!/user_drivers/*/*.c
