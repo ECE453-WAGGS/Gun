@@ -574,14 +574,28 @@
             reg = <0x77200000 0x10000>;
         };*/
 
-        axi_uartlite_0 {
+        /*axi_uartlite_0 {
             compatible = "xlnx,xps-uartlite-1.00.a";
             reg = <0x42c00000 0x10000>;
             interrupt-parent = <&ps7_scugic_0>;
             interrupts = <0 54 4>;
             port-number = <0>;
             clock = <100000000>;
-        };
+        };*/
+
+        ps7_uart_0: serial@e0000000 {
+			clock = <50000000>;
+			clock-frequency = <50000000>;
+			compatible = "xlnx,ps7-uart-1.00.a", "xlnx,xuartps";
+			current-speed = <115200>;
+			/*device_type = "serial";*/
+			interrupt-parent = <&ps7_scugic_0>;
+			interrupts = < 0 27 4 >;
+			port-number = <0>;
+			reg = < 0xe0000000 0x1000 >;
+			xlnx,has-modem = <0x0>;
+			xlnx,uart-clk-freq-hz = <0x2faf080>;
+		};
 
         ece453_timer {
             compatible = "uw,ece453-timer-1.00.a";

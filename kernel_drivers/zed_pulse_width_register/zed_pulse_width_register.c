@@ -26,10 +26,38 @@
 #include <linux/signal.h>
 #include "ece453_zed.h"
 
+#define ZED_NR_SERVOS 2
+#define ZED_PAN_SERVO_ADDR 0x6f200000
+#define ZED_TILT_SERVO_ADDR 0x6f220000
 
-unsigned long *base_addr;  	/* Vitual Base Address */
-struct resource *res;  		/* Device Resource Structure */
-unsigned long remap_size;  	/* Device Memory Size */
+struct ece453_servo {
+    struct platform_device* pdev;   /* Platform device */
+    struct kobject* obj;            /* Kernel object */
+    unsigned long* base_addr;       /* Virtual base address */
+    struct resource* res;           /* Device resource structure */
+    unsigned long remap_size;       /* Device memory size */
+};
+
+static struct ece453_servo servos[ZED_NR_SERVOS];
+
+static ssize_t zed_get_servo_number(size_t start_addr)
+{
+    switch (start_addr) {
+        case ZED_PAN_SERVO_ADDR: return 0;
+        case ZED_TILT_SERVO_ADDR: return 1;
+        default: return -1;
+    }
+}
+
+#define zed_get_servo(field, value)                         \
+({                                                          \
+    int i;                                                  \
+    struct ece453_servo* servo = NULL;                      \
+    for (i = 0; i < ZED_NR_SERVOS; i++) {                   \
+        if (servos[i].field == value) servo = &servos[i];   \
+    }                                                       \
+    servo;                                                  \
+})
 
 /*
  * This module shows how to create a simple subdirectory in sysfs called
@@ -46,12 +74,16 @@ MODULE_PARM_DESC(debug, "enable debug info (default: false)");
 static ssize_t ece453_write(struct kobject *kobj, struct kobj_attribute *attr,
                        const char *buf, size_t count)
 {
+    struct ece453_servo* servo;
 	int var;
 
-	sscanf(buf, "%xu", &var);
+    servo = zed_get_servo(obj, kobj);
+    if (servo == NULL) {
+        return -1;
+    }
 
-	/* write the value out to the pulse width register */
-	iowrite32(var, base_addr);
+	sscanf(buf, "%xu", &var);
+	iowrite32(var, servo->base_addr);
 
     return count;
 }
@@ -78,8 +110,6 @@ static struct attribute_group attr_group = {
         .attrs = attrs,
 };
 
-static struct kobject *ece453_obj;
-
 /*
  *
  */
@@ -93,12 +123,15 @@ static void zed_shutdown(struct platform_device *pdev)
  */
 static int zed_remove(struct platform_device *pdev)
 {
-	iounmap(base_addr);
+    struct ece453_servo* servo;
+
+    servo = zed_get_servo(pdev, pdev);
+	iounmap(servo->base_addr);
 
 	/* Release the region */
-	release_mem_region(res->start, remap_size);
+	release_mem_region(servo->res->start, servo->remap_size);
 
-        kobject_put(ece453_obj);
+    kobject_put(servo->obj);
 
 	return 0;
 }
@@ -112,9 +145,14 @@ static int zed_remove(struct platform_device *pdev)
  **/
 static int __devinit zed_probe(struct platform_device *pdev)
 {
-	int ret = 0;
-	int retval;
+    struct kobject* obj;
+    unsigned long* base_addr;
+    struct resource* res;
+    unsigned long remap_size;
     char dev_name[100];
+    size_t servo_number;
+
+    int ret = 0;
 
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	if (!res) {
@@ -149,21 +187,31 @@ static int __devinit zed_probe(struct platform_device *pdev)
      * not known ahead of time.
      */
     sprintf(dev_name, "ece453_pulse_width_register_%x", (int) res->start);
-    ece453_obj = kobject_create_and_add(dev_name, kernel_kobj);
-    if (!ece453_obj)
+    obj = kobject_create_and_add(dev_name, kernel_kobj);
+    if (!obj)
         return -ENOMEM;
 
     /* Create the files associated with this kobject */
-    ret = sysfs_create_group(ece453_obj, &attr_group);
-    if (retval)
-	{
-        kobject_put(ece453_obj);
+    ret = sysfs_create_group(obj, &attr_group);
+    if (ret) {
+        kobject_put(obj);
         return -ENOMEM;
 	}
 
+    /* Everything succeeded, initialize the servo details */
+    servo_number = zed_get_servo_number(res->start);
+    if (servo_number == -1) {
+        kobject_put(obj);
+        return -ENODEV;
+    }
+
+    servos[servo_number].pdev = pdev;
+    servos[servo_number].obj = obj;
+    servos[servo_number].base_addr = base_addr;
+    servos[servo_number].res = res;
+    servos[servo_number].remap_size = remap_size;
+
 	return 0;
-
-
 }
 
 /* device match table to match with device node in device tree */
@@ -182,8 +230,6 @@ static struct platform_driver zed_platform_driver = {
 	.remove = __devexit_p(zed_remove),
 	.shutdown = __devexit_p(zed_shutdown)
 };
-
-
 
 /**
  * zed_module_init -  register the Device Configuration.

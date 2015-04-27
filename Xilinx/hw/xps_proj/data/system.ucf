@@ -131,8 +131,8 @@ net general_register_0_DATA_pin<2>    	LOC = Y10  | IOSTANDARD = LVCMOS33;	# JA3
 net general_register_0_DATA_pin<3>    	LOC = AA9  | IOSTANDARD = LVCMOS33;	# JA4 - TP204
 net general_register_0_DATA_pin<4>	  	LOC = AB11 | IOSTANDARD = LVCMOS33;	# JA7 - BT_CMD/MLDP_ZED
 net general_register_0_DATA_pin<5>	  	LOC = AB10 | IOSTANDARD = LVCMOS33;	# JA8 - BT_WAKE_SW_ZED
-net axi_uartlite_0_TX_pin		LOC = AB9  | IOSTANDARD = LVCMOS33;	# JA9 - UART_ZED_TO_BT
-net axi_uartlite_0_RX_pin 		LOC = AA8  | IOSTANDARD = LVCMOS33;	# JA10 - UART_BT_TO_ZED
+net processing_system7_0_UART0_TX_pin	LOC = AB9  | IOSTANDARD = LVCMOS33;	# JA9 - UART_ZED_TO_BT
+net processing_system7_0_UART0_RX_pin 	LOC = AA8  | IOSTANDARD = LVCMOS33;	# JA10 - UART_BT_TO_ZED
 
 ############################
 #                          #
