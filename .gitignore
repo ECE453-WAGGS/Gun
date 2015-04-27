@@ -24,3 +24,8 @@ main.c
 !/user_drivers/*/Makefile
 !/user_drivers/*/*.h
 !/user_drivers/*/*.c
+
+/examples/*/*
+!/examples/*/Makefile
+!/examples/*/*.h
+!/examples/*/*.c

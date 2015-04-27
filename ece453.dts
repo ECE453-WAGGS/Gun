@@ -558,13 +558,13 @@
             compatible = "uw,ece453-pulse-width-register-1.00.a";
             reg = <0x6f200000 0x10000>;
         };
-/*
+
         ece453_tilt_servo {
             compatible = "uw,ece453-pulse-width-register-1.00.a";
             reg = <0x6f220000 0x10000>;
         };
 
-        ece453_bluetooth_control {
+        /*ece453_bluetooth_control {
             compatible = "uw,ece453-general-register-1.00.a";
             reg = <0x77220000 0x10000>;
         };
@@ -583,18 +583,11 @@
             clock = <100000000>;
         };
 
-        /*axi_uartlite_0: serial@42c00000 {
-			clock = <50000000>;
-			clock-frequency = <50000000>;
-			compatible = "xlnx,axi-uartlite-0-1.00.a", "xlnx,xuartps";
-			current-speed = <115200>;
-			device_type = "serial";
-			interrupt-parent = <&ps7_scugic_0>;
-			interrupts = < 0 54 4 >;
-			port-number = <0>;
-			reg = <0x42c00000 0x10000>;
-			xlnx,has-modem = <0x0>;
-			xlnx,uart-clk-freq-hz = <0x2faf080>;
-		};*/
+        ece453_timer {
+            compatible = "uw,ece453-timer-1.00.a";
+            interrupt-parent = <&ps7_scugic_0>;
+            interrupts = <0 55 4>;
+            reg = <0x42800000 0x10000>;
+        };
 	};
 };

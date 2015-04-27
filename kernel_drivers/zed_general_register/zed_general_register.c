@@ -50,13 +50,13 @@ static ssize_t ece453_write(struct kobject *kobj, struct kobj_attribute *attr,
 
 	sscanf(buf, "%xu", &var);
 
-	/* write the value out to the LEDs */
-	iowrite8(var, base_addr);
+	/* write the value out to the register */
+    iowrite8(var, base_addr);
 
     return count;
 }
 
-static struct kobj_attribute leds_attribute =
+static struct kobj_attribute general_register_attribute =
         __ATTR(write, 0222, NULL, ece453_write);
 
 /*
@@ -64,7 +64,7 @@ static struct kobj_attribute leds_attribute =
  * at once.
  */
 static struct attribute *attrs[] = {
-        &leds_attribute.attr,
+        &general_register_attribute.attr,
         NULL,   /* need to NULL terminate the list of attributes */
 };
 
@@ -148,7 +148,7 @@ static int __devinit zed_probe(struct platform_device *pdev)
      * any type of dynamic kobjects, where the name and number are
      * not known ahead of time.
      */
-    ece453_obj = kobject_create_and_add("ece453_leds", kernel_kobj);
+    ece453_obj = kobject_create_and_add("ece453_general_register", kernel_kobj);
     if (!ece453_obj)
             return -ENOMEM;
 

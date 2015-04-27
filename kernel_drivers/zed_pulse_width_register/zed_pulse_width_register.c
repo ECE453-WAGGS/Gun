@@ -113,8 +113,8 @@ static int zed_remove(struct platform_device *pdev)
 static int __devinit zed_probe(struct platform_device *pdev)
 {
 	int ret = 0;
-
 	int retval;
+    char dev_name[100];
 
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	if (!res) {
@@ -148,16 +148,17 @@ static int __devinit zed_probe(struct platform_device *pdev)
      * any type of dynamic kobjects, where the name and number are
      * not known ahead of time.
      */
-    ece453_obj = kobject_create_and_add("ece453_pulse_width_register", kernel_kobj);
+    sprintf(dev_name, "ece453_pulse_width_register_%x", (int) res->start);
+    ece453_obj = kobject_create_and_add(dev_name, kernel_kobj);
     if (!ece453_obj)
-            return -ENOMEM;
+        return -ENOMEM;
 
     /* Create the files associated with this kobject */
     ret = sysfs_create_group(ece453_obj, &attr_group);
     if (retval)
 	{
-                kobject_put(ece453_obj);
-                return -ENOMEM;
+        kobject_put(ece453_obj);
+        return -ENOMEM;
 	}
 
 	return 0;

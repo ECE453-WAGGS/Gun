@@ -1,8 +1,12 @@
 # Gun
 
+ZedBoard SSH Password: 1
+
 ece453.dts: The device tree file.  Rebuild using build_dtb
 
 ece453_defconfig: Kernel build configuration.  Do not use this file; instead, run 'make menuconfig' from the linux-digilent/ directory to configure the kernel.
+
+examples: Any examples that might be useful for writing our own code.
 
 images: Images used for creating the bootloader.
 
