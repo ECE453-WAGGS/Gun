@@ -18,16 +18,13 @@ gun_control
 
 /kernel_drivers/*/*
 !/kernel_drivers/*/Makefile
-!/kernel_drivers/*/*.h
-!/kernel_drivers/*/*.c
+!/kernel_drivers/*/*.[h|c|cpp]
 /kernel_drivers/*/*.mod.c
 
-/user_drivers/*/*
-!/user_drivers/*/Makefile
-!/user_drivers/*/*.h
-!/user_drivers/*/*.c
+/user_drivers/*
+!/user_drivers/Makefile
+!/user_drivers/*.[h|c|cpp]
 
 /examples/*/*
 !/examples/*/Makefile
-!/examples/*/*.h
-!/examples/*/*.c
+!/examples/*/*.[h|c|cpp]

@@ -26,10 +26,38 @@
 #include <linux/signal.h>
 #include "ece453_zed.h"
 
+#define ZED_NR_CONTROL_REGISTERS 2
+#define ZED_BLUETOOTH_CONTROL_ADDR 0x77220000
+#define ZED_GUN_CONTROL_ADDR 0x77200000
 
-unsigned long *base_addr;  	/* Vitual Base Address */
-struct resource *res;  		/* Device Resource Structure */
-unsigned long remap_size;  	/* Device Memory Size */
+struct ece453_control_register {
+    struct platform_device* pdev;   /* Platform device */
+    struct kobject* obj;            /* Kernel object */
+    unsigned long* base_addr;       /* Virtual base address */
+    struct resource* res;           /* Device resource structure */
+    unsigned long remap_size;       /* Device memory size */
+};
+
+static struct ece453_control_register control_registers[ZED_NR_CONTROL_REGISTERS];
+
+static ssize_t zed_get_control_register_number(size_t start_addr)
+{
+    switch (start_addr) {
+        case ZED_BLUETOOTH_CONTROL_ADDR: return 0;
+        case ZED_GUN_CONTROL_ADDR: return 1;
+        default: return -1;
+    }
+}
+
+#define zed_get_control_register(field, value)                                                  \
+({                                                                                              \
+    int i;                                                                                      \
+    struct ece453_control_register* control_register = NULL;                                    \
+    for (i = 0; i < ZED_NR_CONTROL_REGISTERS; i++) {                                            \
+        if (control_registers[i].field == value) control_register = &control_registers[i];      \
+    }                                                                                           \
+    control_register;                                                                           \
+})
 
 /*
  * This module shows how to create a simple subdirectory in sysfs called
@@ -46,12 +74,16 @@ MODULE_PARM_DESC(debug, "enable debug info (default: false)");
 static ssize_t ece453_write(struct kobject *kobj, struct kobj_attribute *attr,
                        const char *buf, size_t count)
 {
+    struct ece453_control_register* control_register;
 	int var;
 
-	sscanf(buf, "%xu", &var);
+    control_register = zed_get_control_register(obj, kobj);
+    if (control_register == NULL) {
+        return -1;
+    }
 
-	/* write the value out to the register */
-    iowrite8(var, base_addr);
+	sscanf(buf, "%xu", &var);
+	iowrite8(var, control_register->base_addr);
 
     return count;
 }
@@ -78,8 +110,6 @@ static struct attribute_group attr_group = {
         .attrs = attrs,
 };
 
-static struct kobject *ece453_obj;
-
 /*
  *
  */
@@ -93,12 +123,15 @@ static void zed_shutdown(struct platform_device *pdev)
  */
 static int zed_remove(struct platform_device *pdev)
 {
-	iounmap(base_addr);
+    struct ece453_control_register* control_register;
+
+    control_register = zed_get_control_register(pdev, pdev);
+	iounmap(control_register->base_addr);
 
 	/* Release the region */
-	release_mem_region(res->start, remap_size);
+	release_mem_region(control_register->res->start, control_register->remap_size);
 
-        kobject_put(ece453_obj);
+    kobject_put(control_register->obj);
 
 	return 0;
 }
@@ -112,9 +145,14 @@ static int zed_remove(struct platform_device *pdev)
  **/
 static int __devinit zed_probe(struct platform_device *pdev)
 {
-	int ret = 0;
+    struct kobject* obj;
+    unsigned long* base_addr;
+    struct resource* res;
+    unsigned long remap_size;
+    char dev_name[100];
+    size_t control_register_number;
 
-	int retval;
+    int ret = 0;
 
 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 	if (!res) {
@@ -148,26 +186,37 @@ static int __devinit zed_probe(struct platform_device *pdev)
      * any type of dynamic kobjects, where the name and number are
      * not known ahead of time.
      */
-    ece453_obj = kobject_create_and_add("ece453_general_register", kernel_kobj);
-    if (!ece453_obj)
-            return -ENOMEM;
+    sprintf(dev_name, "ece453_general_register_%x", (int) res->start);
+    obj = kobject_create_and_add(dev_name, kernel_kobj);
+    if (!obj)
+        return -ENOMEM;
 
     /* Create the files associated with this kobject */
-    ret = sysfs_create_group(ece453_obj, &attr_group);
-    if (retval)
-	{
-                kobject_put(ece453_obj);
-                return -ENOMEM;
+    ret = sysfs_create_group(obj, &attr_group);
+    if (ret) {
+        kobject_put(obj);
+        return -ENOMEM;
 	}
 
+    /* Everything succeeded, initialize the control_register details */
+    control_register_number = zed_get_control_register_number(res->start);
+    if (control_register_number == -1) {
+        kobject_put(obj);
+        return -ENODEV;
+    }
+
+    control_registers[control_register_number].pdev = pdev;
+    control_registers[control_register_number].obj = obj;
+    control_registers[control_register_number].base_addr = base_addr;
+    control_registers[control_register_number].res = res;
+    control_registers[control_register_number].remap_size = remap_size;
+
 	return 0;
-
-
 }
 
 /* device match table to match with device node in device tree */
 static const struct of_device_id zed_of_match[] __devinitconst = {
-	{.compatible = "uw,ece453-leds-1.00.a"},
+	{.compatible = "uw,ece453-general-register-1.00.a"},
 	{},
 };
 
@@ -181,8 +230,6 @@ static struct platform_driver zed_platform_driver = {
 	.remove = __devexit_p(zed_remove),
 	.shutdown = __devexit_p(zed_shutdown)
 };
-
-
 
 /**
  * zed_module_init -  register the Device Configuration.

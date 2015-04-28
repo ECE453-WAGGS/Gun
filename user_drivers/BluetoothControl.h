@@ -3,12 +3,13 @@
 
 #include <fstream>
 #include <string>
-#include <cstdint>
+#include <stdint.h>
+#include "Register.h"
 
-class BluetoothControl
+class BluetoothControl: public Register<uint8_t>
 {
 public:
-    const string DEV_FILE;
+    const std::string DEV_FILE;
 
     BluetoothControl(std::string filename);
     ~BluetoothControl();
@@ -20,12 +21,15 @@ public:
     void setCommand(bool value);
 
 private:
+    static const unsigned int WAKE_HW_BIT = 0;
+    static const unsigned int WAKE_SW_BIT = 5;
+    static const unsigned int CMD_BIT = 4;
+
     std::ofstream file;
-    uint8_t reg;
 
     // Don't copy
     BluetoothControl(const BluetoothControl&);
-    Bluetooth& operator=(const BluetoothControl&);
+    BluetoothControl& operator=(const BluetoothControl&);
 };
 
 #endif
