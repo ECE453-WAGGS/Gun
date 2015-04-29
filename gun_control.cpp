@@ -3,7 +3,7 @@
 
 int main()
 {
-	GunControlRegister control("foo");
+	GunControlRegister control("/dev/stdout");
     char input;
 
     while (true) {

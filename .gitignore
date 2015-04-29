@@ -2,6 +2,7 @@ a.out
 *.o
 bluetooth_detect
 gun_control
+servo_control
 
 /images/
 

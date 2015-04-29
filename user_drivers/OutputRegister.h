@@ -3,7 +3,6 @@
 
 #include <fstream>
 #include <string>
-#include <fstream>
 
 template <typename T>
 class OutputRegister
@@ -14,6 +13,10 @@ public:
 
 protected:
     void flush();
+
+    void setRegister(T value);
+    void writeRegister(T value);
+
     void setBit(unsigned int bit, bool value);
     void writeBit(unsigned int bit, bool value);
 
@@ -43,6 +46,19 @@ template <typename T>
 void OutputRegister<T>::flush()
 {
 	file << reg << std::flush;
+}
+
+template <typename T>
+void OutputRegister<T>::setRegister(T value)
+{
+    reg = value;
+}
+
+template <typename T>
+void OutputRegister<T>::writeRegister(T value)
+{
+    reg = value;
+    flush();
 }
 
 template <typename T>
