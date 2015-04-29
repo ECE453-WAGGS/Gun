@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <string>
 #include "user_drivers/BluetoothControlRegister.h"
 
 #define UART_DEV "/dev/ttyPS1"

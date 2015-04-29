@@ -3,7 +3,7 @@
 const std::string BluetoothControlRegister::BT_CTRL_DEV = "foo";
 
 BluetoothControlRegister::BluetoothControlRegister(std::string filename):
-	OutputRegister(filename.c_str())
+	OutputRegister(filename)
 {
 }
 

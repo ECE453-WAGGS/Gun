@@ -6,7 +6,7 @@ all: bluetooth_detect gun_control
 bluetooth_detect: bluetooth_detect.o user_drivers/BluetoothControlRegister.o
 	g++ -Wall $^ -o bluetooth_detect
 
-gun_control: gun_control.o
+gun_control: gun_control.o user_drivers/GunControlRegister.o
 	g++ -Wall $^ -o gun_control
 
 clean:
