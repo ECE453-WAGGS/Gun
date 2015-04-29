@@ -1,4 +1,5 @@
 a.out
+*.o
 bluetooth_detect
 gun_control
 
@@ -23,8 +24,11 @@ gun_control
 
 /user_drivers/*
 !/user_drivers/Makefile
-!/user_drivers/*.[h|c|cpp]
+!/user_drivers/*.h
+!/user_drivers/*.cpp
 
 /examples/*/*
 !/examples/*/Makefile
-!/examples/*/*.[h|c|cpp]
+!/examples/*/*.h
+!/examples/*/*.c
+!/examples/*/*.cpp

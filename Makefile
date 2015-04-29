@@ -3,7 +3,7 @@ OBJ_FILES = $(patsubst %.cpp, %.o, $(SRC_FILES))
 
 all: bluetooth_detect gun_control
 
-bluetooth_detect: bluetooth_detect.o user_drivers/BluetoothControl.o
+bluetooth_detect: bluetooth_detect.o user_drivers/BluetoothControlRegister.o
 	g++ -Wall $^ -o bluetooth_detect
 
 gun_control: gun_control.o
