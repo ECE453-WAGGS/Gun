@@ -8,33 +8,27 @@
 int main()
 {
     BluetoothControlRegister control(BluetoothControlRegister::BT_CTRL_DEV);
-    std::fstream devFile(UART_DEV);
+    std::fstream uart(UART_DEV);
     std::string response;
 
     control.writeWakeSoftware(1);
     control.writeWakeHardware(1);
     control.writeCommand(1);
 
-    devFile << "+\n";
+    uart << "+\n\r";
+    uart << "SF,1\n\r";
+    uart << "SS,C0000000\n\r";
+    uart << "SR,90000000\n\r";
+    uart << "R,1\n\r";
+    uart << "LS\n\r";
+    uart << "A\n\r";
 
-    devFile << "SF,1\n";
-
-    devFile << "SS,C0000000\n";
-
-    devFile << "SR,90000000\n";
-
-    devFile << "R,1\n";
-
-    devFile << "LS\n";
-
-    // devFile >> response;
+    // uart >> response;
     // std::cout << response << std::endl;
-
-    devFile << "A\n";
 
     // while (true) {
     //     std::cout << "FIRE" << std::flush;
     // }
-    devFile.close();
+    uart.close();
     return 0;
 }

@@ -1,4 +1,2 @@
 #!/bin/bash
-temp_file=`mktemp`
-./detect_laser.py > $temp_file&
-./servo_control < $temp_file&
+./detect_laser.py $1 | ./servo_control

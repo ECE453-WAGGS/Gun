@@ -503,7 +503,7 @@
 			clock-frequency = <50000000>;
 			compatible = "xlnx,ps7-uart-1.00.a", "xlnx,xuartps";
 			current-speed = <115200>;
-			/*device_type = "serial";*/
+			device_type = "serial";
 			interrupt-parent = <&ps7_scugic_0>;
 			interrupts = < 0 50 4 >;
 			port-number = <0>;
@@ -544,15 +544,16 @@
 
         /* Entries below Added for ECE453 */
 
+        /* Communicating with bluetooth */
         ps7_uart_0: serial@e0000000 {
 			clock = <50000000>;
 			clock-frequency = <50000000>;
 			compatible = "xlnx,ps7-uart-1.00.a", "xlnx,xuartps";
 			current-speed = <115200>;
-			/*device_type = "serial";*/
+			device_type = "serial";
 			interrupt-parent = <&ps7_scugic_0>;
 			interrupts = < 0 27 4 >;
-			port-number = <1>;
+			port-number = <0>;           /* I tried both 0 and 1 as the port number */
 			reg = < 0xe0000000 0x1000 >;
 			xlnx,has-modem = <0x0>;
 			xlnx,uart-clk-freq-hz = <0x2faf080>;
