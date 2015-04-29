@@ -45,7 +45,7 @@ OutputRegister<T>::~OutputRegister()
 template <typename T>
 void OutputRegister<T>::flush()
 {
-	file << reg << std::flush;
+	file << "0x" << std::hex << int(reg) << std::flush;
 }
 
 template <typename T>
@@ -60,6 +60,8 @@ void OutputRegister<T>::writeRegister(T value)
     reg = value;
     flush();
 }
+
+#include <iostream>
 
 template <typename T>
 void OutputRegister<T>::setBit(unsigned int bit, bool value)

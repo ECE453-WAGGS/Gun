@@ -1,6 +1,6 @@
 #include "GunControlRegister.h"
 
-const std::string GunControlRegister::GUN_CTRL_DEV = "foo";
+const std::string GunControlRegister::GUN_CTRL_DEV = "/sys/kernel/ece453_general_register_77200000/write";
 
 GunControlRegister::GunControlRegister(std::string filename):
 	OutputRegister(filename)

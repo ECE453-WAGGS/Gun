@@ -3,8 +3,8 @@
 
 int main()
 {
-	ServoControlRegister panServo("/dev/stdout");
-	ServoControlRegister tiltServo("/dev/stdout");
+	ServoControlRegister panServo(ServoControlRegister::PAN_SERVO_CTRL_DEV);
+	ServoControlRegister tiltServo(ServoControlRegister::TILT_SERVO_CTRL_DEV);
 
 	double panMilliseconds, tiltMilliseconds;
 

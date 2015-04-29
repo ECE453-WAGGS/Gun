@@ -1,6 +1,6 @@
 #include "BluetoothControlRegister.h"
 
-const std::string BluetoothControlRegister::BT_CTRL_DEV = "foo";
+const std::string BluetoothControlRegister::BT_CTRL_DEV = "/sys/kernel/ece453_general_register_77220000/write";
 
 BluetoothControlRegister::BluetoothControlRegister(std::string filename):
 	OutputRegister(filename)
