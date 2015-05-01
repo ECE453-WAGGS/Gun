@@ -18,13 +18,13 @@ horz_inches_per_pixel = camera_view_width_in / 640
 vert_inches_per_pixel = camera_view_height_in / 480
 millisec_per_inch = 1.2 / turret_view_angle_in
 turret_left_edge_ms = 1.5 - (320*horz_inches_per_pixel*millisec_per_inch)
-turret_top_edge_ms = 1.5 - (240*horz_inches_per_pixel*millisec_per_inch)
+turret_top_edge_ms = 1.3 - (240*horz_inches_per_pixel*millisec_per_inch)
 
 #print 'h_in_pixel:', horz_inches_per_pixel, 'v_in_pixel:', vert_inches_per_pixel, 'ms_per_in:', millisec_per_inch
 #print 'width:', camera_view_width_in, 'height:', camera_view_height_in, 'turret:', turret_view_angle_in
 
 #Grab capture object
-cap = cv2.VideoCapture('/dev/video0')
+cap = cv2.VideoCapture(0)
 if (not cap.isOpened()):
   #print "Capture not open"
   cap.open()
@@ -87,6 +87,7 @@ while (True):
   turret_vert_pos_ms = turret_top_edge_ms + (center[1]*horz_inches_per_pixel*millisec_per_inch)
   #print 'horz ms:', turret_horz_pos_ms, 'vert ms:', turret_vert_pos_ms
   print turret_horz_pos_ms, turret_vert_pos_ms
+  sys.stdout.flush()
 
   #Create the masked image
   #newmask = cv2.bitwise_not(blur, blur, mask)

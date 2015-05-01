@@ -498,6 +498,7 @@
 			xlnx,ttc-clk2-freq-hz = <0x69f6bcb>;
 		};
 
+        /* This hasn't been modified since I copied the file from the course page */
 		ps7_uart_1: serial@e0001000 {
 			clock = <50000000>;
 			clock-frequency = <50000000>;
